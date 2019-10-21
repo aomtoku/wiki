@@ -192,11 +192,11 @@ module PIO_EP #(
 
   // Local wires
 
-  wire  [10:0]      rd_addr;
+  wire  [13:0]      rd_addr;
   wire  [3:0]       rd_be;
   wire  [31:0]      rd_data;
 
-  wire  [10:0]      wr_addr;
+  wire  [13:0]      wr_addr;
   wire  [7:0]       wr_be;
   wire  [63:0]      wr_data;
   wire              wr_en;

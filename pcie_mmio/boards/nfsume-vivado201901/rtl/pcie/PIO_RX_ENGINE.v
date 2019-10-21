@@ -156,7 +156,7 @@ module PIO_RX_ENGINE  #(
   //processing written information.
 
 
-  output reg             [10:0]    wr_addr,            // Memory Write Address
+  output reg             [13:0]    wr_addr,            // Memory Write Address
   output reg              [7:0]    wr_be,              // Memory Write Byte Enable
   output reg             [63:0]    wr_data,            // Memory Write Data
   output reg                       wr_en,              // Memory Write Enable
@@ -279,7 +279,7 @@ module PIO_RX_ENGINE  #(
           req_at              <= #TCQ 2'b0;
 
           wr_be               <= #TCQ 8'b0;
-          wr_addr             <= #TCQ 11'b0;
+          wr_addr             <= #TCQ 14'b0;
           wr_data             <= #TCQ 64'h0;
           wr_en               <= #TCQ 1'b0;
           payload_len         <= #TCQ 1'b0;
@@ -652,7 +652,7 @@ module PIO_RX_ENGINE  #(
 
               if (m_axis_cq_tvalid)
               begin
-                wr_addr          <= #TCQ req_addr[12:2];
+                wr_addr          <= #TCQ req_addr[15:2];
                 case (data_start_loc)
                   3'b000 : begin
                     wr_data          <= #TCQ payload_len ? m_axis_cq_tdata[63:0] : {32'h0, m_axis_cq_tdata[31:0]};
@@ -779,7 +779,7 @@ module PIO_RX_ENGINE  #(
           req_at              <= #TCQ 2'b0;
 
           wr_be               <= #TCQ 8'b0;
-          wr_addr             <= #TCQ 11'b0;
+          wr_addr             <= #TCQ 14'b0;
           wr_data             <= #TCQ 64'h0;
           wr_en               <= #TCQ 1'b0;
           payload_len         <= #TCQ 1'b0;
@@ -1139,7 +1139,7 @@ module PIO_RX_ENGINE  #(
 
               if (m_axis_cq_tvalid)
               begin
-                wr_addr          <= #TCQ req_addr[12:2];
+                wr_addr          <= #TCQ req_addr[15:2];
                 case (data_start_loc)
                   3'b000 : begin
                     wr_data          <= #TCQ payload_len ? m_axis_cq_tdata[63:0] : {32'h0, m_axis_cq_tdata[31:0]};
@@ -1280,7 +1280,7 @@ module PIO_RX_ENGINE  #(
           req_at              <= #TCQ 2'b0;
 
           wr_be               <= #TCQ 8'b0;
-          wr_addr             <= #TCQ 11'b0;
+          wr_addr             <= #TCQ 14'b0;
           wr_data             <= #TCQ 64'h0;
           wr_en               <= #TCQ 1'b0;
           payload_len         <= #TCQ 1'b0;
@@ -1388,7 +1388,7 @@ module PIO_RX_ENGINE  #(
                         state            <= #TCQ PIO_RX_WAIT_STATE;
                         wr_be            <= #TCQ m_axis_cq_tuser[7:0];
                         wr_en            <= #TCQ 1'b1;
-                        wr_addr          <= #TCQ {region_select[1:0],m_axis_cq_tdata[10:2]};
+                        wr_addr          <= #TCQ {region_select[1:0],m_axis_cq_tdata[13:2]};
                         m_axis_cq_tready <= #TCQ 1'b0;
                       end // DWord Aligned Mode
                       else begin // Address Aligned Mode
@@ -1467,7 +1467,7 @@ module PIO_RX_ENGINE  #(
                         state            <= #TCQ PIO_RX_WAIT_STATE;
                         wr_be            <= #TCQ m_axis_cq_tuser[7:0];
                         wr_en            <= #TCQ 1'b1;
-                        wr_addr          <= #TCQ {region_select[1:0],m_axis_cq_tdata[10:2]};
+                        wr_addr          <= #TCQ {region_select[1:0],m_axis_cq_tdata[13:2]};
                         m_axis_cq_tready <= #TCQ 1'b0;
                         if(m_axis_cq_tdata[74:64] == 11'h002) begin // 2DWord Payload
                           wr_data        <= #TCQ m_axis_cq_tdata[191:128];
@@ -1637,7 +1637,7 @@ module PIO_RX_ENGINE  #(
 
               if (m_axis_cq_tvalid)
               begin
-                wr_addr          <= #TCQ req_addr[12:2];
+                wr_addr          <= #TCQ req_addr[15:2];
                 case (data_start_loc)
                   3'b000 : begin
                     wr_data[31:0]    <= #TCQ m_axis_cq_tdata[31:0] ;
